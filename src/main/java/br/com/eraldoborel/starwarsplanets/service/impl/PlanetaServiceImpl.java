@@ -1,8 +1,11 @@
 package br.com.eraldoborel.starwarsplanets.service.impl;
 
+import java.util.Optional;
+
 import br.com.eraldoborel.starwarsplanets.model.Planeta;
 import br.com.eraldoborel.starwarsplanets.repository.PlanetaRepository;
 import br.com.eraldoborel.starwarsplanets.service.PlanetaService;
+import br.com.eraldoborel.starwarsplanets.service.exceptions.NomeDuplicadoException;
 
 public class PlanetaServiceImpl implements PlanetaService {
 
@@ -13,7 +16,13 @@ public class PlanetaServiceImpl implements PlanetaService {
 	}
 
 	@Override
-	public Planeta salvar(Planeta planeta) {
+	public Planeta salvar(Planeta planeta) throws NomeDuplicadoException {
+		
+		Optional<Planeta> resultado = repository.findByNome(planeta.getNome());
+		
+		if (resultado.isPresent()) {
+			throw new NomeDuplicadoException();
+		}
 		
 		return repository.save(planeta);
 	}
