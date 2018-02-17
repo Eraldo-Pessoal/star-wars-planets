@@ -6,6 +6,7 @@ import br.com.eraldoborel.starwarsplanets.model.Planeta;
 import br.com.eraldoborel.starwarsplanets.repository.PlanetaRepository;
 import br.com.eraldoborel.starwarsplanets.service.PlanetaService;
 import br.com.eraldoborel.starwarsplanets.service.exceptions.NomeDuplicadoException;
+import br.com.eraldoborel.starwarsplanets.service.exceptions.PlanetaNaoEncontradoException;
 
 public class PlanetaServiceImpl implements PlanetaService {
 
@@ -25,6 +26,17 @@ public class PlanetaServiceImpl implements PlanetaService {
 		}
 		
 		return repository.save(planeta);
+	}
+
+	@Override
+	public Planeta buscar_por_nome(String nome) throws PlanetaNaoEncontradoException {
+		Optional<Planeta> resultado = repository.findByNome(nome);
+		
+		if (!resultado.isPresent()) {
+			throw new PlanetaNaoEncontradoException();
+		}
+		
+		return resultado.get();
 	}
 
 }

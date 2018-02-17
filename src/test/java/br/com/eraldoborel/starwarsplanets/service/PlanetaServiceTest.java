@@ -1,5 +1,6 @@
 package br.com.eraldoborel.starwarsplanets.service;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -15,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import br.com.eraldoborel.starwarsplanets.model.Planeta;
 import br.com.eraldoborel.starwarsplanets.repository.PlanetaRepository;
 import br.com.eraldoborel.starwarsplanets.service.exceptions.NomeDuplicadoException;
+import br.com.eraldoborel.starwarsplanets.service.exceptions.PlanetaNaoEncontradoException;
 import br.com.eraldoborel.starwarsplanets.service.impl.PlanetaServiceImpl;
 
 @RunWith(SpringRunner.class)
@@ -50,5 +52,19 @@ public class PlanetaServiceTest {
 		servico.salvar(planeta);
 		
 		verify(repository, never()).save(planeta);
+	}
+	
+	@Test
+	public void retorna_planeta_pelo_nome() throws Exception {
+		when(repository.findByNome(planeta.getNome())).thenReturn(Optional.of(planeta));
+		
+		Planeta planeta_encontrado = servico.buscar_por_nome(planeta.getNome());
+		
+		assertEquals(planeta.getNome(), planeta_encontrado.getNome());
+	}
+	
+	@Test(expected = PlanetaNaoEncontradoException.class)
+	public void dispara_erro_quando_nao_encontra_planeta_pelo_nome() throws Exception {
+		servico.buscar_por_nome(planeta.getNome());
 	}
 }
