@@ -23,4 +23,16 @@ public class PlanetaResourceTest extends StarWarsPlanetsApplicationTests {
 			.body("nome", equalTo("Terra"));
 	}
 	
+	
+	@Test
+	public void nao_encontra_pessoa_pelo_nome() {
+		given()
+			.pathParam("nome", "terrarrr")
+			
+		.get("/planetas/{nome}")
+		.then()
+			.log().body().and()
+			.statusCode(HttpStatus.NOT_FOUND.value())
+			.body("erro", equalTo("Não existe planeta com o nome 'terrarrr'"));
+	}
 }

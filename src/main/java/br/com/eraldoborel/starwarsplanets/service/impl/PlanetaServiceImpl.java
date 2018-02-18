@@ -36,7 +36,7 @@ public class PlanetaServiceImpl implements PlanetaService {
 	public Planeta buscar_por_nome(String nome) throws PlanetaNaoEncontradoException {
 		Optional<Planeta> resultado = repository.findByNomeIgnoreCase(nome);
 
-		return resultado.orElseThrow(() -> new PlanetaNaoEncontradoException());
+		return resultado.orElseThrow(() -> new PlanetaNaoEncontradoException(nome));
 	}
 
 }
