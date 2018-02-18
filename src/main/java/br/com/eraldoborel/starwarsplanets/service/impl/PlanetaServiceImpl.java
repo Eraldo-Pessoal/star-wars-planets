@@ -14,9 +14,14 @@ import br.com.eraldoborel.starwarsplanets.service.exceptions.PlanetaNaoEncontrad
 @Service
 public class PlanetaServiceImpl implements PlanetaService {
 
+	@Autowired
 	private PlanetaRepository repository;
 
-	public PlanetaServiceImpl(@Autowired PlanetaRepository repository) {
+	public PlanetaServiceImpl() {
+		super();
+	}
+
+	public PlanetaServiceImpl(PlanetaRepository repository) {
 		this.repository = repository;
 	}
 
@@ -26,7 +31,7 @@ public class PlanetaServiceImpl implements PlanetaService {
 		Optional<Planeta> resultado = repository.findByNomeIgnoreCase(planeta.getNome());
 		
 		if (resultado.isPresent()) {
-			throw new NomeDuplicadoException();
+			throw new NomeDuplicadoException(planeta.getNome());
 		}
 		
 		return repository.save(planeta);

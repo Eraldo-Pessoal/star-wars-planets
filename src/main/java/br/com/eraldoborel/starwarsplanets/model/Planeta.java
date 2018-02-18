@@ -6,9 +6,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "planeta")
 public class Planeta {
+	
+	public Planeta() {
+	
+	}
 
 	public Planeta(String nome) {
-		super();
 		this.nome = nome;
 	}
 
