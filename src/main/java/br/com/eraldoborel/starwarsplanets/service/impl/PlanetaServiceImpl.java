@@ -2,17 +2,21 @@ package br.com.eraldoborel.starwarsplanets.service.impl;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import br.com.eraldoborel.starwarsplanets.model.Planeta;
 import br.com.eraldoborel.starwarsplanets.repository.PlanetaRepository;
 import br.com.eraldoborel.starwarsplanets.service.PlanetaService;
 import br.com.eraldoborel.starwarsplanets.service.exceptions.NomeDuplicadoException;
 import br.com.eraldoborel.starwarsplanets.service.exceptions.PlanetaNaoEncontradoException;
 
+@Service
 public class PlanetaServiceImpl implements PlanetaService {
 
 	private PlanetaRepository repository;
 
-	public PlanetaServiceImpl(PlanetaRepository repository) {
+	public PlanetaServiceImpl(@Autowired PlanetaRepository repository) {
 		this.repository = repository;
 	}
 
