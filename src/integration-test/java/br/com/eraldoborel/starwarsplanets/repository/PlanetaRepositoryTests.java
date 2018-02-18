@@ -1,4 +1,4 @@
-package br.com.eraldoborel.starwarsplanets.service;
+package br.com.eraldoborel.starwarsplanets.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
