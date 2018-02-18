@@ -32,10 +32,9 @@ public class PlanetaServiceTest {
 	@Before
 	public void setUp() throws Exception {
 		servico =  new PlanetaServiceImpl(repository);
-		planeta = new Planeta();
-		planeta.setNome("Terra");
+		planeta = new Planeta("Terra");
 		
-		when(repository.findByNome(planeta.getNome())).thenReturn(Optional.empty());
+		when(repository.findByNomeIgnoreCase(planeta.getNome())).thenReturn(Optional.empty());
 	}
 	
 	@Test
@@ -47,7 +46,7 @@ public class PlanetaServiceTest {
 	
 	@Test(expected = NomeDuplicadoException.class)
 	public void nao_salvar_dois_planetas_com_mesmo_nome() throws Exception {
-		when(repository.findByNome(planeta.getNome())).thenReturn(Optional.of(planeta));
+		when(repository.findByNomeIgnoreCase(planeta.getNome())).thenReturn(Optional.of(planeta));
 		
 		servico.salvar(planeta);
 		
@@ -56,7 +55,7 @@ public class PlanetaServiceTest {
 	
 	@Test
 	public void retorna_planeta_pelo_nome() throws Exception {
-		when(repository.findByNome(planeta.getNome())).thenReturn(Optional.of(planeta));
+		when(repository.findByNomeIgnoreCase(planeta.getNome())).thenReturn(Optional.of(planeta));
 		
 		Planeta planeta_encontrado = servico.buscar_por_nome(planeta.getNome());
 		

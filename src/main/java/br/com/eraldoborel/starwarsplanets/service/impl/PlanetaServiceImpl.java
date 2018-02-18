@@ -19,7 +19,7 @@ public class PlanetaServiceImpl implements PlanetaService {
 	@Override
 	public Planeta salvar(Planeta planeta) throws NomeDuplicadoException {
 		
-		Optional<Planeta> resultado = repository.findByNome(planeta.getNome());
+		Optional<Planeta> resultado = repository.findByNomeIgnoreCase(planeta.getNome());
 		
 		if (resultado.isPresent()) {
 			throw new NomeDuplicadoException();
@@ -30,7 +30,7 @@ public class PlanetaServiceImpl implements PlanetaService {
 
 	@Override
 	public Planeta buscar_por_nome(String nome) throws PlanetaNaoEncontradoException {
-		Optional<Planeta> resultado = repository.findByNome(nome);
+		Optional<Planeta> resultado = repository.findByNomeIgnoreCase(nome);
 
 		return resultado.orElseThrow(() -> new PlanetaNaoEncontradoException());
 	}
