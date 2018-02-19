@@ -7,11 +7,11 @@ import static org.hamcrest.Matchers.startsWith;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 
-import br.com.eraldoborel.starwarsplanets.StarWarsPlanetsApplicationTests;
+import br.com.eraldoborel.starwarsplanets.StarWarsPlanetsBaseIntegrationTests;
 import br.com.eraldoborel.starwarsplanets.model.Planeta;
 import io.restassured.http.ContentType;
 
-public class PlanetaResourceTest extends StarWarsPlanetsApplicationTests {
+public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 
 	
 	@Test
