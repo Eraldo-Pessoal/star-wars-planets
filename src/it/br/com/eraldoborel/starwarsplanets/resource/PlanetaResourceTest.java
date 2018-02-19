@@ -171,7 +171,45 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 			.body("clima", equalTo("Temperado"));
 	}
 	
-	//TODO: Criar teste para update de planeta que não existe
+	@Test
+	public void erro_ao_atualizar_planeta_que_nao_existe() {
+		Planeta terra2 = new Planeta("Terra");
+		terra2.setClima("Temperado");
+		
+		given()
+			.pathParam("id", "ID0")
+			.request()
+				.header("Accept", ContentType.ANY)
+				.header("Content-type", ContentType.JSON)
+			.body(terra2)
+		.when()
+			.post("/planetas/{id}/")
+		.then()
+			.log().body()
+			.and()
+			.statusCode(HttpStatus.NOT_FOUND.value())
+			.body("erro", equalTo("Não existe planeta com o id 'ID0'"));
+	}
 	
-	//TODO: Criar teste para update gerando nome duplicado
+	@Test
+	public void erro_ao_atualizar_planeta_gerando_duplicidade_de_nome() {
+		String nome = tatooine.getNome();
+		
+		Planeta terra2 = new Planeta(nome);
+		terra2.setClima("Temperado");
+		
+		given()
+			.pathParam("id", terra.getId())
+			.request()
+				.header("Accept", ContentType.ANY)
+				.header("Content-type", ContentType.JSON)
+			.body(terra2)
+		.when()
+			.post("/planetas/{id}/")
+		.then()
+			.log().body()
+			.and()
+			.statusCode(HttpStatus.BAD_REQUEST.value())
+			.body("erro", equalTo("Já existe planeta cadastrado com o nome '"  + nome + "'"));
+	}
 }

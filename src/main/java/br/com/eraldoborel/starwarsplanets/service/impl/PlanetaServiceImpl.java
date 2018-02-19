@@ -74,8 +74,14 @@ public class PlanetaServiceImpl implements PlanetaService {
 	}
 
 	@Override
-	public Planeta atualizar(String id, Planeta planeta) {
-		Planeta planeta_existente = repository.findOne(id);
+	public Planeta atualizar(String id, Planeta planeta) throws PlanetaNaoEncontradoException, NomeDuplicadoException {
+		Planeta planeta_existente = buscar_por_id(id);
+		
+		Optional<Planeta> resultado = repository.findByNomeIgnoreCaseAndIdNot(planeta.getNome(), id);
+		
+		if (resultado.isPresent()) {
+			throw new NomeDuplicadoException("Já existe planeta cadastrado com o nome '" + planeta.getNome() + "'");
+		}
 		
 		planeta_existente.setNome(planeta.getNome());
 		planeta_existente.setClima(planeta.getClima());

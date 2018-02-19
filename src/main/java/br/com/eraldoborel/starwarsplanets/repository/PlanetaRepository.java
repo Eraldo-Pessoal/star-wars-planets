@@ -10,4 +10,6 @@ public interface PlanetaRepository extends MongoRepository<Planeta, String> {
 
 	Optional<Planeta> findByNomeIgnoreCase(String nome);
 
+	Optional<Planeta> findByNomeIgnoreCaseAndIdNot(String nome, String id);
+
 }

@@ -64,7 +64,7 @@ public class PlanetaResource {
 	}
 	
 	@PostMapping("/{id}/")
-	public ResponseEntity<Planeta> atualizar(@PathVariable("id") String id, @RequestBody Planeta planeta, HttpServletResponse response) throws NomeDuplicadoException {
+	public ResponseEntity<Planeta> atualizar(@PathVariable("id") String id, @RequestBody Planeta planeta, HttpServletResponse response) throws NomeDuplicadoException, PlanetaNaoEncontradoException {
 		Planeta planetaSalvo = servico.atualizar(id, planeta);
 		
 		URI url = ServletUriComponentsBuilder
