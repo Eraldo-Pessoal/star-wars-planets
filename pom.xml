@@ -51,6 +51,14 @@
 		    <version>3.0.7</version>
 		    <scope>test</scope>
 		</dependency>
+		
+		<dependency>
+	        <groupId>org.apache.httpcomponents</groupId>
+	        <artifactId>httpclient</artifactId>
+	    </dependency>
+	        <!-- 
+	        <scope>runtime</scope>
+	         -->
 	</dependencies>
 
 	<build>
