@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.ResourceAccessException;
@@ -21,12 +20,11 @@ import org.springframework.web.client.RestTemplate;
 import br.com.eraldoborel.starwarsplanets.model.apisw.Planet;
 import br.com.eraldoborel.starwarsplanets.model.apisw.Result;
 import br.com.eraldoborel.starwarsplanets.service.exceptions.ApiSWIndisponivelException;
+import br.com.eraldoborel.starwarsplanets.service.impl.AparicoesFilmesSWServiceImpl;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 public class AparicoesFilmesSWServiceTest {
-
-	@Autowired
+	
 	private AparicoesFilmesSWService aparicoesFilmesSWService;
 	
 	@MockBean
@@ -39,6 +37,8 @@ public class AparicoesFilmesSWServiceTest {
 	
 	@Before
 	public void setUp() throws Exception {
+		aparicoesFilmesSWService = new AparicoesFilmesSWServiceImpl(restTemplate);
+		
 		tatooine = new Planet();
 		tatooine.setName("Tatooine");
 		tatooine.setFilms(Arrays.asList(

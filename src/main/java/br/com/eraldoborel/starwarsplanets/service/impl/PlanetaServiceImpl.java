@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.eraldoborel.starwarsplanets.model.Planeta;
 import br.com.eraldoborel.starwarsplanets.repository.PlanetaRepository;
+import br.com.eraldoborel.starwarsplanets.service.AparicoesFilmesSWService;
 import br.com.eraldoborel.starwarsplanets.service.PlanetaService;
 import br.com.eraldoborel.starwarsplanets.service.exceptions.NomeDuplicadoException;
 import br.com.eraldoborel.starwarsplanets.service.exceptions.PlanetaNaoEncontradoException;
@@ -17,13 +18,17 @@ public class PlanetaServiceImpl implements PlanetaService {
 
 	@Autowired
 	private PlanetaRepository repository;
-
+		
+	@Autowired
+	private AparicoesFilmesSWService aparicoesFilmesSWService;
+	
 	public PlanetaServiceImpl() {
 		super();
 	}
 
-	public PlanetaServiceImpl(PlanetaRepository repository) {
+	public PlanetaServiceImpl(PlanetaRepository repository, AparicoesFilmesSWService aparicoesFilmesSWService) {
 		this.repository = repository;
+		this.aparicoesFilmesSWService = aparicoesFilmesSWService;
 	}
 
 	@Override

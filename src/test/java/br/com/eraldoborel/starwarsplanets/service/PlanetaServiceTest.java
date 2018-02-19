@@ -25,13 +25,17 @@ public class PlanetaServiceTest {
 	@MockBean
 	private PlanetaRepository repository;
 	
+	@MockBean
+	private AparicoesFilmesSWService aparicoesFilmesSWService;
+	
 	private PlanetaService servico;
 	
 	private Planeta planeta;
 	
 	@Before
 	public void setUp() throws Exception {
-		servico =  new PlanetaServiceImpl(repository);
+		servico = new PlanetaServiceImpl(repository, aparicoesFilmesSWService);
+		
 		planeta = new Planeta("Terra");
 		
 		when(repository.findByNomeIgnoreCase(planeta.getNome())).thenReturn(Optional.empty());

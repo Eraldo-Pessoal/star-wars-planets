@@ -16,12 +16,19 @@ import br.com.eraldoborel.starwarsplanets.service.AparicoesFilmesSWService;
 import br.com.eraldoborel.starwarsplanets.service.exceptions.ApiSWIndisponivelException;
 
 @Service
-@Qualifier
 public class AparicoesFilmesSWServiceImpl implements AparicoesFilmesSWService {
-	
+
 	@Autowired
 	private RestTemplate restTemplate;
-	
+
+	public AparicoesFilmesSWServiceImpl() {
+		super();
+	}
+
+	public AparicoesFilmesSWServiceImpl(RestTemplate restTemplate) {
+		super();
+		this.restTemplate = restTemplate;
+	}
 
 	@Override
 	public int getNumeroAparicoes(String nome) throws ApiSWIndisponivelException {
