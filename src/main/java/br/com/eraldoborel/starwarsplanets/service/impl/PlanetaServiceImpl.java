@@ -35,6 +35,8 @@ public class PlanetaServiceImpl implements PlanetaService {
 			throw new NomeDuplicadoException("Já existe planeta cadastrado com o nome '" + planeta.getNome() + "'");
 		}
 		
+		//TODO: Fazer acesso a API principal para pegar a quantidade de aparições em filmes
+		
 		return repository.save(planeta);
 	}
 
