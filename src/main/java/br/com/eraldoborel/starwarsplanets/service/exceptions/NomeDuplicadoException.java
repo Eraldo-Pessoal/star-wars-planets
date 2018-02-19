@@ -4,14 +4,14 @@ public class NomeDuplicadoException extends Exception {
 
 	private static final long serialVersionUID = 548425026649654056L;
 	
-	private final String nome;
+	private final String mensagem;
 
-	public String getNome() {
-		return nome;
+	public String getMensagem() {
+		return mensagem;
 	}
 
-	public NomeDuplicadoException(String nome) {
+	public NomeDuplicadoException(String mensagem) {
 		super();
-		this.nome = nome;
+		this.mensagem = mensagem;
 	}
 }

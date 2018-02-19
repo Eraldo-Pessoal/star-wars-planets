@@ -4,15 +4,15 @@ public class PlanetaNaoEncontradoException extends Exception {
 
 	private static final long serialVersionUID = 4009468952936055486L;
 
-	private final String nome;
+	private final String mensagem;
 	
-	public PlanetaNaoEncontradoException(String nome) {
+	public PlanetaNaoEncontradoException(String mensagem) {
 		super();
-		this.nome = nome;
+		this.mensagem = mensagem;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getMensagem() {
+		return mensagem;
 	}
 
 }

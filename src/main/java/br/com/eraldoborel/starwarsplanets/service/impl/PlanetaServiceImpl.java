@@ -1,5 +1,6 @@
 package br.com.eraldoborel.starwarsplanets.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class PlanetaServiceImpl implements PlanetaService {
 		Optional<Planeta> resultado = repository.findByNomeIgnoreCase(planeta.getNome());
 		
 		if (resultado.isPresent()) {
-			throw new NomeDuplicadoException(planeta.getNome());
+			throw new NomeDuplicadoException("Já existe planeta cadastrado com o nome '" + planeta.getNome() + "'");
 		}
 		
 		return repository.save(planeta);
@@ -41,7 +42,47 @@ public class PlanetaServiceImpl implements PlanetaService {
 	public Planeta buscar_por_nome(String nome) throws PlanetaNaoEncontradoException {
 		Optional<Planeta> resultado = repository.findByNomeIgnoreCase(nome);
 
-		return resultado.orElseThrow(() -> new PlanetaNaoEncontradoException(nome));
+		return resultado.orElseThrow(() -> new PlanetaNaoEncontradoException("Não existe planeta com o nome '" + nome + "'"));
 	}
 
+	@Override
+	public void apagar(String id) throws PlanetaNaoEncontradoException {
+		
+		Planeta planeta = repository.findOne(id);
+		
+		if (planeta == null) {
+			throw new PlanetaNaoEncontradoException("Não existe planeta com o id '" + id + "'");
+		}
+		
+		repository.delete(id);
+	}
+
+	@Override
+	public Planeta buscar_por_id(String id) throws PlanetaNaoEncontradoException {
+		Planeta planeta = repository.findOne(id);
+		
+		if (planeta == null) {
+			throw new PlanetaNaoEncontradoException("Não existe planeta com o id '" + id + "'");
+		}
+		
+		return planeta;
+	}
+
+	@Override
+	public List<Planeta> findAll() {
+		return repository.findAll();
+	}
+
+	@Override
+	public Planeta atualizar(String id, Planeta planeta) {
+		Planeta planeta_existente = repository.findOne(id);
+		
+		planeta_existente.setNome(planeta.getNome());
+		planeta_existente.setClima(planeta.getClima());
+		planeta_existente.setTerreno(planeta.getTerreno());
+		
+		planeta_existente = repository.save(planeta_existente);
+		
+		return planeta_existente;
+	}
 }

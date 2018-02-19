@@ -25,9 +25,9 @@ public class StarWarsPlanetsApplicationTests {
 
 	
 	@Autowired
-    PlanetaRepository repository;
+	protected PlanetaRepository repository;
 
-    private Planeta terra, saturno, tatooine;
+    protected Planeta terra, saturno, tatooine;
 
     @Before
     public void setUp() {
