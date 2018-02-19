@@ -170,4 +170,8 @@ public class PlanetaResourceTest extends StarWarsPlanetsApplicationTests {
 				.body("nome", equalTo("Terra"))
 				.body("clima", equalTo("Temperado"));
 	}
+	
+	//TODO: Criar teste para update de planeta que não existe
+	
+	//TODO: Criar teste para update gerando nome duplicado
 }
