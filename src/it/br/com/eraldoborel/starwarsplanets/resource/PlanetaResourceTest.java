@@ -18,8 +18,8 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 	public void procura_pessoa_pelo_nome() {
 		given()
 			.pathParam("nome", "terra")
-			
-		.get("/planetas/nome/{nome}/")
+		.when()	
+			.get("/planetas/nome/{nome}/")
 		.then()
 			.log().body().and()
 			.statusCode(HttpStatus.OK.value())
@@ -31,10 +31,11 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 	public void nao_encontra_pessoa_pelo_nome() {
 		given()
 			.pathParam("nome", "terrarrr")
-			
-		.get("/planetas/nome/{nome}/")
+		.when()	
+			.get("/planetas/nome/{nome}/")
 		.then()
-			.log().body().and()
+			.log().body()
+			.and()
 			.statusCode(HttpStatus.NOT_FOUND.value())
 			.body("erro", equalTo("Não existe planeta com o nome 'terrarrr'"));
 	}
@@ -49,15 +50,15 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 			.header("Content-type", ContentType.JSON)
 			.body(alderaan)
 		.when()
-		.post("/planetas/")
+			.post("/planetas/")
 		.then()
 			.log().headers()
 			.and()
 			.log().body()
 			.and()
-				.statusCode(HttpStatus.CREATED.value())
-				.header("Location", startsWith("http://localhost:" + porta + "/planetas/"))
-				.body("nome", equalTo("Alderaan"));
+			.statusCode(HttpStatus.CREATED.value())
+			.header("Location", startsWith("http://localhost:" + porta + "/planetas/"))
+			.body("nome", equalTo("Alderaan"));
 	}
 	
 	@Test
@@ -70,12 +71,12 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 			.header("Content-type", ContentType.JSON)
 			.body(terra2)
 		.when()
-		.post("/planetas/")
+			.post("/planetas/")
 		.then()
 			.log().body()
 			.and()
-				.statusCode(HttpStatus.BAD_REQUEST.value())
-				.body("erro", equalTo("Já existe planeta cadastrado com o nome 'Terra'"));
+			.statusCode(HttpStatus.BAD_REQUEST.value())
+			.body("erro", equalTo("Já existe planeta cadastrado com o nome 'Terra'"));
 	}
 	
 	@Test
@@ -86,12 +87,12 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 		given()
 			.pathParam("id", plutao.getId())
 		.when()
-		.delete("/planetas/{id}/")
+			.delete("/planetas/{id}/")
 		.then()
 			.log().body()
 			.and()
-				.statusCode(HttpStatus.OK.value())
-				.body("mensagem", equalTo("Planeta com o id '" + plutao.getId() + "' foi removido com sucesso."));
+			.statusCode(HttpStatus.OK.value())
+			.body("mensagem", equalTo("Planeta com o id '" + plutao.getId() + "' foi removido com sucesso."));
 	}
 	
 	@Test
@@ -99,7 +100,7 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 		given()
 			.pathParam("id", "ID0")
 		.when()
-		.delete("/planetas/{id}/")
+			.delete("/planetas/{id}/")
 		.then()
 			.log().body()
 			.and()
@@ -111,8 +112,8 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 	public void procura_pessoa_pelo_id() {
 		given()
 			.pathParam("id", terra.getId())
-			
-		.get("/planetas/{id}/")
+		.when()	
+			.get("/planetas/{id}/")
 		.then()
 			.log().body().and()
 			.statusCode(HttpStatus.OK.value())
@@ -123,8 +124,8 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 	public void erro_ao_procurar_pessoa_pelo_id_que_nao_existe() {
 		given()
 			.pathParam("id", "ID0")
-			
-		.get("/planetas/{id}/")
+		.when()	
+			.get("/planetas/{id}/")
 		.then()
 			.log().body()
 			.and()
@@ -135,15 +136,14 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 	@Test
 	public void listar_planetas() {
 		given()
-			
-		.get("/planetas/")
+		.when()	
+			.get("/planetas/")
 		.then()
 			.log().body().and()
 			.statusCode(HttpStatus.OK.value())
 			.body("[0].nome", equalTo("Terra"))
 			.body("[1].nome", equalTo("Saturno"))
-			.body("[2].nome", equalTo("Tatooine"))
-			;
+			.body("[2].nome", equalTo("Tatooine"));
 	}
 	
 	@Test
@@ -162,13 +162,13 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 		.then()
 			.log().headers()
 			.and()
-					.log().body()
+			.log().body()
 			.and()
-				.statusCode(HttpStatus.OK.value())
-				.header("Location", startsWith("http://localhost:" + porta + "/planetas/"))
-				.body("id", equalTo(terra.getId()))
-				.body("nome", equalTo("Terra"))
-				.body("clima", equalTo("Temperado"));
+			.statusCode(HttpStatus.OK.value())
+			.header("Location", startsWith("http://localhost:" + porta + "/planetas/"))
+			.body("id", equalTo(terra.getId()))
+			.body("nome", equalTo("Terra"))
+			.body("clima", equalTo("Temperado"));
 	}
 	
 	//TODO: Criar teste para update de planeta que não existe
