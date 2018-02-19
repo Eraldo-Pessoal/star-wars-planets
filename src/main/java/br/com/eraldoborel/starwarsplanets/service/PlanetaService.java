@@ -8,7 +8,7 @@ import br.com.eraldoborel.starwarsplanets.service.exceptions.PlanetaNaoEncontrad
 
 public interface PlanetaService {
 
-	Planeta salvar(Planeta planeta) throws NomeDuplicadoException;
+	Planeta criar(Planeta planeta) throws NomeDuplicadoException;
 
 	Planeta buscar_por_nome(String nome) throws PlanetaNaoEncontradoException;
 

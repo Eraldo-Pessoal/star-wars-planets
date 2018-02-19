@@ -39,7 +39,7 @@ public class PlanetaServiceTest {
 	
 	@Test
 	public void salvar_planeta() throws Exception {
-		servico.salvar(planeta);
+		servico.criar(planeta);
 		
 		verify(repository).save(planeta);
 	}
@@ -48,7 +48,7 @@ public class PlanetaServiceTest {
 	public void nao_salvar_dois_planetas_com_mesmo_nome() throws Exception {
 		when(repository.findByNomeIgnoreCase(planeta.getNome())).thenReturn(Optional.of(planeta));
 		
-		servico.salvar(planeta);
+		servico.criar(planeta);
 		
 		verify(repository, never()).save(planeta);
 	}

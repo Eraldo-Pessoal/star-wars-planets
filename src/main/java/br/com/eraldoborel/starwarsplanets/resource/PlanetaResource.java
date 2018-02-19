@@ -51,8 +51,8 @@ public class PlanetaResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Planeta> salvar(@RequestBody Planeta planeta, HttpServletResponse response) throws NomeDuplicadoException {
-		Planeta planetaSalvo = servico.salvar(planeta);
+	public ResponseEntity<Planeta> criar(@RequestBody Planeta planeta, HttpServletResponse response) throws NomeDuplicadoException {
+		Planeta planetaSalvo = servico.criar(planeta);
 		
 		URI url = ServletUriComponentsBuilder
 				.fromCurrentRequestUri().path("/{id}/")

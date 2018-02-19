@@ -27,7 +27,7 @@ public class PlanetaServiceImpl implements PlanetaService {
 	}
 
 	@Override
-	public Planeta salvar(Planeta planeta) throws NomeDuplicadoException {
+	public Planeta criar(Planeta planeta) throws NomeDuplicadoException {
 		
 		Optional<Planeta> resultado = repository.findByNomeIgnoreCase(planeta.getNome());
 		
