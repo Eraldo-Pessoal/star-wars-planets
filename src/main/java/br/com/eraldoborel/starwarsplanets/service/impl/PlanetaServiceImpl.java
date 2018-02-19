@@ -47,25 +47,15 @@ public class PlanetaServiceImpl implements PlanetaService {
 
 	@Override
 	public void apagar(String id) throws PlanetaNaoEncontradoException {
-		
-		Planeta planeta = repository.findOne(id);
-		
-		if (planeta == null) {
-			throw new PlanetaNaoEncontradoException("Não existe planeta com o id '" + id + "'");
-		}
-		
+		buscar_por_id(id);
 		repository.delete(id);
 	}
 
 	@Override
 	public Planeta buscar_por_id(String id) throws PlanetaNaoEncontradoException {
-		Planeta planeta = repository.findOne(id);
+		Optional<Planeta> resultado = repository.findOptionalById(id);
 		
-		if (planeta == null) {
-			throw new PlanetaNaoEncontradoException("Não existe planeta com o id '" + id + "'");
-		}
-		
-		return planeta;
+		return resultado.orElseThrow(() -> new PlanetaNaoEncontradoException("Não existe planeta com o id '" + id + "'"));
 	}
 
 	@Override
@@ -87,8 +77,6 @@ public class PlanetaServiceImpl implements PlanetaService {
 		planeta_existente.setClima(planeta.getClima());
 		planeta_existente.setTerreno(planeta.getTerreno());
 		
-		planeta_existente = repository.save(planeta_existente);
-		
-		return planeta_existente;
+		return repository.save(planeta_existente);
 	}
 }
