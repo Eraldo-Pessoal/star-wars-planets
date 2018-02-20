@@ -22,7 +22,7 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 	@Test
 	public void procura_pessoa_pelo_nome() {
 		given()
-			.pathParam("nome", "terra")
+			.pathParam("nome", "térra")
 		.when()	
 			.get("/planetas/nome/{nome}/")
 		.then()
