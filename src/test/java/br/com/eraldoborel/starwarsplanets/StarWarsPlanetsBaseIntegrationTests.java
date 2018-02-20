@@ -37,9 +37,9 @@ public abstract class StarWarsPlanetsBaseIntegrationTests {
 	protected PlanetaRepository repository;
 	
 	@Autowired
-	private RestTemplate restTemplate;
+	protected RestTemplate restTemplate;
 
-	private MockRestServiceServer mockServer;
+	protected MockRestServiceServer mockServer;
 
 	protected Planeta terra, saturno, tatooine;
 	

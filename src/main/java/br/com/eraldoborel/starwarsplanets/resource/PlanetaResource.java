@@ -86,6 +86,11 @@ public class PlanetaResource {
 		return new ResponseEntity<Mensagem>(mensagem  , HttpStatus.OK);
 	}
 	
+	@ExceptionHandler({ApiSWIndisponivelException.class})
+	public ResponseEntity<Erro> handleApiSWIndisponivelException (ApiSWIndisponivelException e) {
+		Erro erro = new Erro(e.getMessage());
+		return new ResponseEntity<Erro>(erro , HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 	
 	@ExceptionHandler({NomeDuplicadoException.class})
 	public ResponseEntity<Erro> handleNomeDuplicadoException (NomeDuplicadoException e) {

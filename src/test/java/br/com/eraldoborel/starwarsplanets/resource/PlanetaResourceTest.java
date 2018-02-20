@@ -1,11 +1,16 @@
 package br.com.eraldoborel.starwarsplanets.resource;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.startsWith;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withUnauthorizedRequest;
 
 import org.junit.Test;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.web.client.MockRestServiceServer;
 
 import br.com.eraldoborel.starwarsplanets.StarWarsPlanetsBaseIntegrationTests;
 import br.com.eraldoborel.starwarsplanets.model.Planeta;
@@ -60,8 +65,6 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 			.header("Location", startsWith("http://localhost:" + porta + "/planetas/"))
 			.body("nome", equalTo("Alderaan"))
 			.body("quantidadeAparicoesFilmes", equalTo(2));
-		
-		
 	}
 	
 	@Test
@@ -217,7 +220,60 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 			.body("erro", equalTo("Já existe planeta cadastrado com o nome '"  + nome + "'"));
 	}
 	
-	//TODO: Criar teste para falha de apiSW ao criar um planeta
-
-	//TODO: Criar teste para falha de apiSW ao atualizar um planeta
+	
+	@Test
+	public void api_sw_falha_ao_atualizar_planeta() {
+		mockServer = MockRestServiceServer.createServer(restTemplate);
+		
+        mockServer.expect(requestTo(startsWith("https://swapi.co/")))
+	        .andExpect(method(HttpMethod.GET))
+	        .andRespond(
+	        		withUnauthorizedRequest()
+	    );
+		
+		String nome = tatooine.getNome();
+		
+		Planeta terra2 = new Planeta(nome);
+		terra2.setClima("Temperado");
+		
+		given()
+			.pathParam("id", tatooine.getId())
+			.request()
+				.header("Accept", ContentType.ANY)
+				.header("Content-type", ContentType.JSON)
+			.body(terra2)
+		.when()
+			.post("/planetas/{id}/")
+		.then()
+			.log().body()
+			.and()
+			.statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+			.body("erro", equalTo("Erro interno"));
+	}
+	
+	@Test
+	public void api_sw_falha_ao_salvar_planeta() {
+		mockServer = MockRestServiceServer.createServer(restTemplate);
+		
+        mockServer.expect(requestTo(startsWith("https://swapi.co/")))
+	        .andExpect(method(HttpMethod.GET))
+	        .andRespond(
+	        		withUnauthorizedRequest()
+	    );
+		
+		Planeta terra2 = new Planeta("TerraNova");
+		
+		given()
+			.request()
+			.header("Accept", ContentType.ANY)
+			.header("Content-type", ContentType.JSON)
+			.body(terra2)
+		.when()
+			.post("/planetas/")
+		.then()
+			.log().body()
+			.and()
+			.statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+			.body("erro", equalTo("Erro interno"));
+	}
 }
