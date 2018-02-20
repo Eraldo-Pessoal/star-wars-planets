@@ -24,6 +24,8 @@ public class Planeta {
 	private String clima;
 	
 	private String terreno;
+	
+	private int quantidadeAparicoesFilmes = 0;
 
 	
 	public String getId() {
@@ -56,5 +58,13 @@ public class Planeta {
 
 	public void setTerreno(String terreno) {
 		this.terreno = terreno;
+	}
+
+	public int getQuantidadeAparicoesFilmes() {
+		return quantidadeAparicoesFilmes;
+	}
+
+	public void setQuantidadeAparicoesFilmes(int quantidadeAparicoesFilmes) {
+		this.quantidadeAparicoesFilmes = quantidadeAparicoesFilmes;
 	}
 }

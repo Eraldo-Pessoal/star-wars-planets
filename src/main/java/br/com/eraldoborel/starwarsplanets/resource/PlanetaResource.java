@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.eraldoborel.starwarsplanets.model.Planeta;
 import br.com.eraldoborel.starwarsplanets.service.PlanetaService;
+import br.com.eraldoborel.starwarsplanets.service.exceptions.ApiSWIndisponivelException;
 import br.com.eraldoborel.starwarsplanets.service.exceptions.NomeDuplicadoException;
 import br.com.eraldoborel.starwarsplanets.service.exceptions.PlanetaNaoEncontradoException;
 
@@ -51,7 +52,7 @@ public class PlanetaResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Planeta> criar(@RequestBody Planeta planeta, HttpServletResponse response) throws NomeDuplicadoException {
+	public ResponseEntity<Planeta> criar(@RequestBody Planeta planeta, HttpServletResponse response) throws NomeDuplicadoException, ApiSWIndisponivelException {
 		Planeta planetaSalvo = servico.criar(planeta);
 		
 		URI url = ServletUriComponentsBuilder

@@ -6,7 +6,20 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Planet {
+
 	private String name;
+	
+	private List<String> films;
+	
+	public Planet() {
+		super();
+	}
+	
+	public Planet(String name, List<String> films) {
+		super();
+		this.name = name;
+		this.films = films;
+	}
 	
 	public String getName() {
 		return name;
@@ -23,6 +36,4 @@ public class Planet {
 	public void setFilms(List<String> films) {
 		this.films = films;
 	}
-
-	private List<String> films;
 }

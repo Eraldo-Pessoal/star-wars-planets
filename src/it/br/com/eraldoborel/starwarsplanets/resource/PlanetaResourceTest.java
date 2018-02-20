@@ -58,7 +58,10 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 			.and()
 			.statusCode(HttpStatus.CREATED.value())
 			.header("Location", startsWith("http://localhost:" + porta + "/planetas/"))
-			.body("nome", equalTo("Alderaan"));
+			.body("nome", equalTo("Alderaan"))
+			.body("quantidadeAparicoesFilmes", equalTo(2));
+		
+		
 	}
 	
 	@Test

@@ -10,6 +10,7 @@ import br.com.eraldoborel.starwarsplanets.model.Planeta;
 import br.com.eraldoborel.starwarsplanets.repository.PlanetaRepository;
 import br.com.eraldoborel.starwarsplanets.service.AparicoesFilmesSWService;
 import br.com.eraldoborel.starwarsplanets.service.PlanetaService;
+import br.com.eraldoborel.starwarsplanets.service.exceptions.ApiSWIndisponivelException;
 import br.com.eraldoborel.starwarsplanets.service.exceptions.NomeDuplicadoException;
 import br.com.eraldoborel.starwarsplanets.service.exceptions.PlanetaNaoEncontradoException;
 
@@ -32,7 +33,7 @@ public class PlanetaServiceImpl implements PlanetaService {
 	}
 
 	@Override
-	public Planeta criar(Planeta planeta) throws NomeDuplicadoException {
+	public Planeta criar(Planeta planeta) throws NomeDuplicadoException, ApiSWIndisponivelException {
 		
 		Optional<Planeta> resultado = repository.findByNomeIgnoreCase(planeta.getNome());
 		
@@ -40,7 +41,9 @@ public class PlanetaServiceImpl implements PlanetaService {
 			throw new NomeDuplicadoException("Já existe planeta cadastrado com o nome '" + planeta.getNome() + "'");
 		}
 		
-		//TODO: Fazer acesso a API principal para pegar a quantidade de aparições em filmes
+		int qtde_aparicoes = aparicoesFilmesSWService.getNumeroAparicoes(planeta.getNome());
+		
+		planeta.setQuantidadeAparicoesFilmes(qtde_aparicoes);
 		
 		return repository.save(planeta);
 	}
