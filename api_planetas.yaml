@@ -1,0 +1,169 @@
+swagger: "2.0"
+info:
+  description: "API de planetas Star Wars"
+  version: "1.0.0"
+  title: "Planetas Star Wars"
+  contact:
+    email: "eraldo.info@gmail.com"
+host: "localhost:8080"
+basePath: "/planetas"
+schemes:
+- "http"
+paths:
+  /:
+    post:
+      summary: "Adiciona um novo planeta"
+      operationId: "addPlaneta"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Json do planeta a ser adicionado"
+        required: true
+        schema:
+          $ref: "#/definitions/PlanetaForm"
+      responses:
+        201:
+          description: "Criado com sucesso"
+        500:
+          description: "Erro interno"
+    put:
+      summary: "Atualiza um planeta existente"
+      operationId: "updatePlaneta"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Json do planeta a ser adicionado"
+        required: true
+        schema:
+          $ref: "#/definitions/PlanetaFormUpdate"
+      responses:
+        200:
+          description: "Criado com sucesso"
+        404:
+          description: "Planeta não encontrado"
+        500:
+          description: "Erro interno"
+    get:
+      summary: "Lista todos os planetas cadastrados"
+      operationId: "listPlanetas"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Sucesso"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Planeta"
+  /{Id}/:
+    get:
+      summary: "Procura planeta pelo ID"
+      operationId: "getPlanetaById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID do planeta"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Sucesso"
+          schema:
+            $ref: "#/definitions/Planeta"
+        404:
+          description: "Planeta não foi encontrado"
+    delete:
+      summary: "Remove um planeta"
+      operationId: "deletePlaneta"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "Id do planeta que deve ser removido"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Planeta removido com sucesso"
+        404:
+          description: "Planeta não encontrado"
+  /nome/{Nome}/:
+    get:
+      summary: "Procura planeta pelo nome"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Nome"
+        in: "path"
+        description: "Nome do planeta procurado"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Planeta"
+  
+definitions:
+  Planeta:
+    type: "object"
+    required:
+    - "nome"
+    properties:
+      id:
+        type: "string"
+      nome:
+        type: "string"
+        example: "Tatooine"
+      clima:
+        type: "string"
+        example: "Temperado"
+      terreno:
+        type: "string"
+        example: "Arenoso"
+      quantidadeAparicoesFilmes:
+        type: "integer"
+        description: "Quantidade de filmes em que aparece. Obtido automaticamente pesquisando pelo 'nome' do planeta na API SW"
+  PlanetaForm:
+    type: "object"
+    required:
+    - "nome"
+    properties:
+      nome:
+        type: "string"
+        example: "Tatooine"
+      clima:
+        type: "string"
+        example: "Temperado"
+      terreno:
+        type: "string"
+        example: "Arenoso"
+  PlanetaFormUpdate:
+    type: "object"
+    required:
+    - "id"
+    - "nome"
+    properties:
+      id:
+        type: "string"
+      nome:
+        type: "string"
+        example: "Tatooine"
+      clima:
+        type: "string"
+        example: "Temperado"
+      terreno:
+        type: "string"
+        example: "Arenoso"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"

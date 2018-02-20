@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,9 +65,9 @@ public class PlanetaResource {
 		return new ResponseEntity<Planeta>(planetaSalvo, HttpStatus.CREATED);
 	}
 	
-	@PostMapping("/{id}/")
-	public ResponseEntity<Planeta> atualizar(@PathVariable("id") String id, @RequestBody Planeta planeta, HttpServletResponse response) throws NomeDuplicadoException, PlanetaNaoEncontradoException, ApiSWIndisponivelException {
-		Planeta planetaSalvo = servico.atualizar(id, planeta);
+	@PutMapping("/")
+	public ResponseEntity<Planeta> atualizar(@RequestBody Planeta planeta, HttpServletResponse response) throws NomeDuplicadoException, PlanetaNaoEncontradoException, ApiSWIndisponivelException {
+		Planeta planetaSalvo = servico.atualizar(planeta);
 		
 		URI url = ServletUriComponentsBuilder
 				.fromCurrentRequestUri().path("/{id}/")

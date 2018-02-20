@@ -74,8 +74,9 @@ public class PlanetaServiceImpl implements PlanetaService {
 	}
 
 	@Override
-	public Planeta atualizar(String id, Planeta planeta) throws PlanetaNaoEncontradoException, NomeDuplicadoException, ApiSWIndisponivelException {
-		Planeta planeta_existente = buscar_por_id(id);
+	public Planeta atualizar(Planeta planeta) throws PlanetaNaoEncontradoException, NomeDuplicadoException, ApiSWIndisponivelException {
+		String id = planeta.getId();
+		Planeta planeta_existente = buscar_por_id(id );
 		
 		Optional<Planeta> resultado = repository.findByNomeIgnoreCaseAndIdNot(planeta.getNome(), id);
 		

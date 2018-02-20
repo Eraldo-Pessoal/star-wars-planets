@@ -19,5 +19,5 @@ public interface PlanetaService {
 
 	List<Planeta> findAll();
 
-	Planeta atualizar(String id, Planeta planeta) throws PlanetaNaoEncontradoException, NomeDuplicadoException, ApiSWIndisponivelException;
+	Planeta atualizar(Planeta planeta) throws PlanetaNaoEncontradoException, NomeDuplicadoException, ApiSWIndisponivelException;
 }

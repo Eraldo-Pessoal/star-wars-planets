@@ -22,7 +22,7 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 	@Test
 	public void procura_pessoa_pelo_nome() {
 		given()
-			.pathParam("nome", "térra")
+			.pathParam("nome", "terra")
 		.when()	
 			.get("/planetas/nome/{nome}/")
 		.then()
@@ -155,16 +155,16 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 	@Test
 	public void atualizar_planeta() {
 		Planeta terra2 = new Planeta("Terra");
+		terra2.setId(terra.getId());
 		terra2.setClima("Temperado");
 		
 		given()
-			.pathParam("id", terra.getId())
 			.request()
 				.header("Accept", ContentType.ANY)
 				.header("Content-type", ContentType.JSON)
 			.body(terra2)
 		.when()
-			.post("/planetas/{id}/")
+			.put("/planetas/")
 		.then()
 			.log().headers()
 			.and()
@@ -181,16 +181,16 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 	@Test
 	public void erro_ao_atualizar_planeta_que_nao_existe() {
 		Planeta terra2 = new Planeta("Terra");
+		terra2.setId("ID0");
 		terra2.setClima("Temperado");
 		
 		given()
-			.pathParam("id", "ID0")
 			.request()
 				.header("Accept", ContentType.ANY)
 				.header("Content-type", ContentType.JSON)
 			.body(terra2)
 		.when()
-			.post("/planetas/{id}/")
+			.put("/planetas/")
 		.then()
 			.log().body()
 			.and()
@@ -203,16 +203,16 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 		String nome = tatooine.getNome();
 		
 		Planeta terra2 = new Planeta(nome);
+		terra2.setId(terra.getId());
 		terra2.setClima("Temperado");
 		
 		given()
-			.pathParam("id", terra.getId())
 			.request()
 				.header("Accept", ContentType.ANY)
 				.header("Content-type", ContentType.JSON)
 			.body(terra2)
 		.when()
-			.post("/planetas/{id}/")
+			.put("/planetas/")
 		.then()
 			.log().body()
 			.and()
@@ -234,16 +234,16 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 		String nome = tatooine.getNome();
 		
 		Planeta terra2 = new Planeta(nome);
+		terra2.setId(tatooine.getId());
 		terra2.setClima("Temperado");
 		
 		given()
-			.pathParam("id", tatooine.getId())
 			.request()
 				.header("Accept", ContentType.ANY)
 				.header("Content-type", ContentType.JSON)
 			.body(terra2)
 		.when()
-			.post("/planetas/{id}/")
+			.put("/planetas/")
 		.then()
 			.log().body()
 			.and()
