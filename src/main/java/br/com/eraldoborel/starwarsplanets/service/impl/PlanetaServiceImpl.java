@@ -74,7 +74,7 @@ public class PlanetaServiceImpl implements PlanetaService {
 	}
 
 	@Override
-	public Planeta atualizar(String id, Planeta planeta) throws PlanetaNaoEncontradoException, NomeDuplicadoException {
+	public Planeta atualizar(String id, Planeta planeta) throws PlanetaNaoEncontradoException, NomeDuplicadoException, ApiSWIndisponivelException {
 		Planeta planeta_existente = buscar_por_id(id);
 		
 		Optional<Planeta> resultado = repository.findByNomeIgnoreCaseAndIdNot(planeta.getNome(), id);
@@ -83,9 +83,12 @@ public class PlanetaServiceImpl implements PlanetaService {
 			throw new NomeDuplicadoException("Já existe planeta cadastrado com o nome '" + planeta.getNome() + "'");
 		}
 		
+		int qtde_aparicoes = aparicoesFilmesSWService.getNumeroAparicoes(planeta.getNome());
+		
 		planeta_existente.setNome(planeta.getNome());
 		planeta_existente.setClima(planeta.getClima());
 		planeta_existente.setTerreno(planeta.getTerreno());
+		planeta_existente.setQuantidadeAparicoesFilmes(qtde_aparicoes);
 		
 		return repository.save(planeta_existente);
 	}

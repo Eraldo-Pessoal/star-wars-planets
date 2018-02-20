@@ -171,7 +171,8 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 			.header("Location", startsWith("http://localhost:" + porta + "/planetas/"))
 			.body("id", equalTo(terra.getId()))
 			.body("nome", equalTo("Terra"))
-			.body("clima", equalTo("Temperado"));
+			.body("clima", equalTo("Temperado"))
+			.body("quantidadeAparicoesFilmes", equalTo(1));
 	}
 	
 	@Test
@@ -215,4 +216,8 @@ public class PlanetaResourceTest extends StarWarsPlanetsBaseIntegrationTests {
 			.statusCode(HttpStatus.BAD_REQUEST.value())
 			.body("erro", equalTo("Já existe planeta cadastrado com o nome '"  + nome + "'"));
 	}
+	
+	//TODO: Criar teste para falha de apiSW ao criar um planeta
+
+	//TODO: Criar teste para falha de apiSW ao atualizar um planeta
 }
