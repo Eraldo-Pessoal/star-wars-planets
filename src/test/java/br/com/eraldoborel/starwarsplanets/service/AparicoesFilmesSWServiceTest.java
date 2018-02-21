@@ -11,8 +11,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,9 +26,10 @@ import br.com.eraldoborel.starwarsplanets.model.apisw.Result;
 import br.com.eraldoborel.starwarsplanets.service.exceptions.ApiSWIndisponivelException;
 import br.com.eraldoborel.starwarsplanets.service.impl.AparicoesFilmesSWServiceImpl;
 
-@RunWith(SpringRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 public class AparicoesFilmesSWServiceTest {
 	
+	@Autowired
 	private AparicoesFilmesSWService aparicoesFilmesSWService;
 	
 	@MockBean
@@ -34,10 +40,25 @@ public class AparicoesFilmesSWServiceTest {
 	private Planet tatooine;
 	
 	
+	@Configuration
+	static class someConfig {
+		
+		@Bean
+		PropertyPlaceholderConfigurer propConfig() {
+			PropertyPlaceholderConfigurer ppc =  new PropertyPlaceholderConfigurer();
+			ppc.setLocation(new ClassPathResource("application-test.properties"));
+			return ppc;
+		}
+		
+		
+		@Bean
+		AparicoesFilmesSWService serv( ) {
+			return new AparicoesFilmesSWServiceImpl();
+		}
+	}
+	
 	@Before
 	public void setUp() throws Exception {
-		aparicoesFilmesSWService = new AparicoesFilmesSWServiceImpl(restTemplate);
-		
 		tatooine = new Planet();
 		tatooine.setName("Tatooine");
 		tatooine.setFilms(Arrays.asList(

@@ -27,6 +27,3 @@
 
 1. Instalar banco de dados mongo escutando na porta default (27017).
 2. Executar a classe br.com.eraldoborel.starwarsplanets.StarWarsPlanetsApplication. Levanta um tomcat *embedado* atendendo em [http://localhost:8080](http://localhost:8080).
-
-
-

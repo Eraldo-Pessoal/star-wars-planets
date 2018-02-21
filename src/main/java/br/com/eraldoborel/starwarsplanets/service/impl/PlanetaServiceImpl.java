@@ -23,15 +23,6 @@ public class PlanetaServiceImpl implements PlanetaService {
 	@Autowired
 	private AparicoesFilmesSWService aparicoesFilmesSWService;
 	
-	public PlanetaServiceImpl() {
-		super();
-	}
-
-	public PlanetaServiceImpl(PlanetaRepository repository, AparicoesFilmesSWService aparicoesFilmesSWService) {
-		this.repository = repository;
-		this.aparicoesFilmesSWService = aparicoesFilmesSWService;
-	}
-
 	@Override
 	public Planeta criar(Planeta planeta) throws NomeDuplicadoException, ApiSWIndisponivelException {
 		

@@ -10,7 +10,10 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.eraldoborel.starwarsplanets.model.Planeta;
@@ -28,13 +31,23 @@ public class PlanetaServiceTest {
 	@MockBean
 	private AparicoesFilmesSWService aparicoesFilmesSWService;
 	
+	@Autowired
 	private PlanetaService servico;
 	
 	private Planeta planeta;
 	
+	@Configuration
+	static class someConfig {
+		
+		@Bean
+		PlanetaService serv( ) {
+			return new PlanetaServiceImpl();
+		}
+	}
+	
 	@Before
 	public void setUp() throws Exception {
-		servico = new PlanetaServiceImpl(repository, aparicoesFilmesSWService);
+		//servico = new PlanetaServiceImpl(repository, aparicoesFilmesSWService);
 		
 		planeta = new Planeta("Terra");
 		
