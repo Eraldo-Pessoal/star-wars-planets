@@ -164,6 +164,3 @@ definitions:
       terreno:
         type: "string"
         example: "Arenoso"
-externalDocs:
-  description: "Find out more about Swagger"
-  url: "http://swagger.io"
