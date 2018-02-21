@@ -99,6 +99,7 @@ paths:
   /nome/{Nome}/:
     get:
       summary: "Procura planeta pelo nome"
+      operationId: "getPlanetaByName"
       produces:
       - "application/json"
       parameters:

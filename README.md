@@ -26,5 +26,5 @@
 ## Aplicação
 
 1. Instalar banco de dados mongo escutando na porta default (27017).
-2. Executar a classe br.com.eraldoborel.starwarsplanets.StarWarsPlanetsApplication. Levanta um tomcat *embedado* atendendo em [http://localhost:8080](http://localhost:8080).
-3. A assinatura da API esta descrita no arquivo api_planetas.yaml. Ele pode ser lido pelo [swagger.io](http://swagger.io)
+2. Executar a classe br.com.eraldoborel.starwarsplanets.StarWarsPlanetsApplication.
+3. Em [http://localhost:8080](http://localhost:8080) temos uma página que descreve a assinatura da API. Esta página foi gerada automaticamente a partir do arquivo *api_planetas.yaml* na plataforma [swagger.io](http://swagger.io).
