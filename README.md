@@ -13,7 +13,7 @@
 ## Testes unitários
 
 * Baseados em JUnit.
-* Local ``src/java/java``.
+* Local ``src/test/java``.
 
 
 ## Testes de integração
